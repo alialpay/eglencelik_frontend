@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 class UserSignupPage extends React.Component{
     state = {
@@ -14,30 +15,20 @@ class UserSignupPage extends React.Component{
             [name]: value
         });
     };
-    // onChangeUsername = event => {
-    //     this.setState({
-    //         username: event.target.value
-    //     })
-    // };
 
-    // onChangeDisplayName = event => {
-    //     this.setState({
-    //         displayName: event.target.value
-    //     })
-    // };
+    onClickSignup = event => {
+        event.preventDefault();
 
-    // onChangePassword = event => {
-    //     this.setState({
-    //         password: event.target.value
-    //     })
-    // };
+        const {username, displayName, password} = this.state;
 
-    // onChangePasswordRepeat = event => {
-    //     this.setState({
-    //         passwordRepeat: event.target.value
-    //     })
-    // };
+        const body = {
+            username,
+            displayName,
+            password
+        };
 
+        axios.post('http://localhost:8080/api/1.0/users', body)
+    }
     render() {
         return (
             <form>
@@ -58,7 +49,7 @@ class UserSignupPage extends React.Component{
                     <label>Password Repeat</label>
                     <input name="passwordRepeat" type="password" onChange={this.onChange} />
                 </div>
-                <button>Sign Up</button>
+                <button onClick={this.onClickSignup}>Sign Up</button>
             </form>
         ); 
     }
